@@ -13,7 +13,7 @@ const ProductsList = ({ products }: ProductsListProps) => {
 			data-testid="products-list"
 		>
 			{products.map((product) => (
-				<ProductCard product={product} />
+				<ProductCard product={product} key={product.id} />
 			))}
 		</ul>
 	);
