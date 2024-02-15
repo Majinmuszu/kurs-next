@@ -21,9 +21,11 @@ export default function RootLayout({
 				<nav className="flex space-x-4 bg-blue-500 p-4">
 					<ActiveLink href="/">Home</ActiveLink>
 
-					<ActiveLink href="/products">Products</ActiveLink>
+					<ActiveLink href="/products" exact={false}>
+						Products
+					</ActiveLink>
 				</nav>
-				<section>{children}</section>
+				<main>{children}</main>
 			</body>
 		</html>
 	);

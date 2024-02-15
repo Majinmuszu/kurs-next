@@ -8,14 +8,16 @@ import React from "react";
 type ActiveLinkType = {
 	children: string;
 	href: Route;
+	exact?: boolean;
 };
 
-const ActiveLink = ({ children, href }: ActiveLinkType) => {
+const ActiveLink = ({ children, href, exact = true }: ActiveLinkType) => {
 	const pathname = usePathname();
-	const isActive = pathname === href;
+	const isActive = exact ? pathname === href : pathname.startsWith(href as string);
 	return (
 		<Link
 			href={href}
+			aria-current={isActive}
 			className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
 				underline: isActive,
 			})}
