@@ -18,12 +18,20 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<nav className="flex space-x-4 bg-blue-500 p-4">
-					<ActiveLink href="/">Home</ActiveLink>
-
-					<ActiveLink href="/products">Products</ActiveLink>
+				<nav className="bg-blue-500">
+					<ul className="container mx-auto flex space-x-4 p-4">
+						<li>
+							<ActiveLink href="/">Home</ActiveLink>
+						</li>
+						<li>
+							<ActiveLink href="/products" exact={false}>
+								Products
+							</ActiveLink>
+						</li>
+					</ul>
 				</nav>
-				<section>{children}</section>
+				<main className="container mx-auto flex-1 p-4">{children}</main>
+				<footer className="bg-blue-500 p-4 text-center text-white">© 2024 Muszu</footer>
 			</body>
 		</html>
 	);
