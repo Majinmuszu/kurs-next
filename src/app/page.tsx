@@ -80,7 +80,7 @@ export default function Home() {
 		},
 	];
 	return (
-		<section className="my-8 p-4">
+		<section className="my-8">
 			<ProductsList products={productsList} />
 		</section>
 	);
