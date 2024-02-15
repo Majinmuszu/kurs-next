@@ -1,26 +1,9 @@
 import { ProductItemType } from "@/types/product";
 import React from "react";
 
-type ProductPageProps = {
-	product: ProductItemType;
-};
-
-const mockProduct: ProductItemType = {
-	id: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
-	title: "Handcrafted Steel Pants",
-	price: 832,
-	description: "Andy shoes are designed to keeping in mind durability as well as trends...",
-	category: "Jewelery",
-	rating: {
-		rate: 1.56,
-		count: 870,
-	},
-	image: "https://naszsklep-api.vercel.app/images/81XH0e8fefL._AC_UY879_.jpg",
-	longDescription:
-		"## Tasty\nThe Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes...",
-};
-
-const ProductPage: React.FC<ProductPageProps> = ({ product = mockProduct }) => {
+const ProductPage = async ({ params }: { params: { id: string } }) => {
+	const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${params.id}`);
+	const product = await res.json();
 	return (
 		<article className="mx-auto max-w-screen-md rounded-lg bg-white p-4 shadow-lg">
 			<div className="mb-4">
@@ -29,7 +12,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product = mockProduct }) => {
 			<div className="mb-4">
 				<div className="mb-2 flex items-center justify-between">
 					<h1 className="text-4xl font-bold">{product.title}</h1>
-					<p className="text-2xl text-green-600">${product.price}</p>
+					<p className="text-2xl text-green-600">{product.price / 100} zł</p>
 				</div>
 				<div className="flex items-center justify-between">
 					<div className="mb-2">
