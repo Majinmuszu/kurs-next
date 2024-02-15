@@ -25,7 +25,7 @@ export default function RootLayout({
 						Products
 					</ActiveLink>
 				</nav>
-				<main>{children}</main>
+				<main className="container mx-auto">{children}</main>
 			</body>
 		</html>
 	);
