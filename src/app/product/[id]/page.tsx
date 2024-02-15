@@ -1,26 +1,11 @@
+import { ProductItemType } from "@/types/product";
 import React from "react";
 
-type Rating = {
-	rate: number;
-	count: number;
-};
-
-type Product = {
-	id: string;
-	title: string;
-	price: number;
-	description: string;
-	category: string;
-	rating: Rating;
-	image: string;
-	longDescription: string;
-};
-
 type ProductPageProps = {
-	product: Product;
+	product: ProductItemType;
 };
 
-const mockProduct: Product = {
+const mockProduct: ProductItemType = {
 	id: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
 	title: "Handcrafted Steel Pants",
 	price: 832,

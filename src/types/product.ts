@@ -1,7 +1,14 @@
 export type ProductItemType = {
-	name: string;
-	price: number;
 	id: string;
-	slug: string;
+	title: string;
+	price: number;
 	description: string;
+	category: string;
+	rating: Rating;
+	image: string;
+	longDescription: string;
+};
+type Rating = {
+	rate: number;
+	count: number;
 };
