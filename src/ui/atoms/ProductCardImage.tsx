@@ -1,9 +1,23 @@
 import React from "react";
+import Image from "next/image";
+import { placeholder } from "@/helpers/placeholder";
+import { getPlaiceholder } from "plaiceholder";
+const probe = require("probe-image-size");
 
-const ProductCardImage = ({ src, alt }: { src: string; alt: string }) => {
+const ProductCardImage = async ({ src, alt }: { src: string; alt: string }) => {
+	const blur = await placeholder(src);
+	const imgSize = await probe(src);
 	return (
-		<div className="mb-4">
-			<img src={src} alt={alt} className="mx-auto" />
+		<div className="mb-4 w-full sm:h-32">
+			<Image
+				src={src}
+				alt={alt}
+				width={imgSize.width}
+				height={imgSize.height}
+				className="mx-auto h-full w-auto sm:max-h-36"
+				placeholder="blur"
+				blurDataURL={blur}
+			/>
 		</div>
 	);
 };

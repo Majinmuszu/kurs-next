@@ -1,13 +1,36 @@
+import { getProductById } from "@/api/productApi";
 import { ProductItemType } from "@/types/product";
+import { Metadata } from "next/types";
 import React from "react";
+import Image from "next/image";
+import { placeholder } from "@/helpers/placeholder";
+const probe = require("probe-image-size");
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+	const product = await getProductById(params.id);
+
+	return {
+		title: `Szop - ${product.title}`,
+		description: product.description,
+	};
+}
 
 const ProductPage = async ({ params }: { params: { id: string } }) => {
-	const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${params.id}`);
-	const product = (await res.json()) as ProductItemType;
+	const product = await getProductById(params.id);
+	const blur = await placeholder(product.image);
+	const imgSize = await probe(product.image);
 	return (
 		<article className="justify-between rounded-lg bg-white p-4 shadow-lg md:flex md:p-7">
-			<div className="mb-4 md:mr-5">
-				<img src={product.image} alt={product.title} className="h-auto w-full rounded-lg" />
+			<div className="relative mb-4 w-full md:mr-5 md:w-1/2">
+				<Image
+					src={product.image}
+					alt={product.title}
+					width={imgSize.width}
+					height={imgSize.height}
+					className="mx-auto h-auto w-full rounded-lg"
+					placeholder="blur"
+					blurDataURL={blur}
+				/>
 			</div>
 			<div className="mb-4 md:w-4/6">
 				<div className="mb-4">
