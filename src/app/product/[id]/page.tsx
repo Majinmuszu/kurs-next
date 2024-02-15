@@ -1,4 +1,3 @@
-// ProductPage.tsx
 import React from "react";
 
 type Rating = {
@@ -18,7 +17,7 @@ type Product = {
 };
 
 type ProductPageProps = {
-	product?: Product; // Produkty będą opcjonalne, aby uniknąć błędów kompilacji przy braku danych
+	product: Product;
 };
 
 const mockProduct: Product = {
