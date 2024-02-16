@@ -14,7 +14,7 @@ const ProductCardImage = async ({ src, alt }: { src: string; alt: string }) => {
 				alt={alt}
 				width={imgSize.width}
 				height={imgSize.height}
-				className="mx-auto h-full w-auto sm:max-h-36"
+				className="mx-auto h-full w-auto rounded-lg sm:max-h-36"
 				placeholder="blur"
 				blurDataURL={blur}
 			/>
