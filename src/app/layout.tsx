@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ActiveLink from "@/ui/atoms/ActiveLink";
 import Navigation from "@/ui/molecules/Navigation";
+import Footer from "@/ui/molecules/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<Navigation />
 				<main className="container mx-auto flex-1 p-4">{children}</main>
-				<footer className="bg-blue-500 p-4 text-center text-white">© 2024 Muszu</footer>
+				<Footer />
 			</body>
 		</html>
 	);
