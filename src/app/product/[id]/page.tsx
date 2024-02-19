@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 	const product = await getProductById(params.id);
 
 	return {
-		title: `Szop - ${product.title}`,
+		title: product.title,
 		description: product.description,
 	};
 }
