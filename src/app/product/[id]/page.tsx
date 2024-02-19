@@ -27,6 +27,7 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
 					alt={product.title}
 					width={imgSize.width}
 					height={imgSize.height}
+					quality={50}
 					className="mx-auto h-auto w-full rounded-lg"
 					placeholder="blur"
 					blurDataURL={blur}

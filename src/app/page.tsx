@@ -1,10 +1,9 @@
+import { getProductsWithOffset } from "@/api/productApi";
 import { ProductItemType } from "@/types/product";
 import ProductsList from "@/ui/organisms/ProductsList";
-import { Metadata } from "next";
 
 export default async function Home() {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products?take=20");
-	const products = (await res.json()) as ProductItemType[];
+	const products = await getProductsWithOffset(0);
 	return (
 		<section className="my-8">
 			<ProductsList products={products} />
