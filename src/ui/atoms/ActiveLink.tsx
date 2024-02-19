@@ -15,15 +15,28 @@ const ActiveLink = ({ children, href, exact = true }: ActiveLinkType) => {
 	const pathname = usePathname();
 	const isActive = exact ? pathname === href : pathname.startsWith(href as string);
 	return (
-		<Link
-			href={href}
-			aria-current={isActive}
-			className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
-				underline: isActive,
-			})}
-		>
-			{children}
-		</Link>
+		<>
+			{isActive ? (
+				<Link
+					href={href}
+					aria-current
+					className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
+						underline: isActive,
+					})}
+				>
+					{children}
+				</Link>
+			) : (
+				<Link
+					href={href}
+					className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
+						underline: isActive,
+					})}
+				>
+					{children}
+				</Link>
+			)}
+		</>
 	);
 };
 
