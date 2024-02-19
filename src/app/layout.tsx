@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ActiveLink from "@/ui/atoms/ActiveLink";
+import Navigation from "@/ui/molecules/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,18 +19,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<nav className="bg-blue-500">
-					<ul className="container mx-auto flex space-x-4 p-4">
-						<li>
-							<ActiveLink href="/">Home</ActiveLink>
-						</li>
-						<li>
-							<ActiveLink href="/products" exact={false}>
-								All
-							</ActiveLink>
-						</li>
-					</ul>
-				</nav>
+				<Navigation />
 				<main className="container mx-auto flex-1 p-4">{children}</main>
 				<footer className="bg-blue-500 p-4 text-center text-white">© 2024 Muszu</footer>
 			</body>
