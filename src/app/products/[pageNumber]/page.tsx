@@ -3,7 +3,7 @@ import Pagination from "@/ui/molecules/Pagination";
 import ProductsList from "@/ui/organisms/ProductsList";
 import React from "react";
 
-const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
+const ProductsPagePaginated = async ({ params }: { params: { pageNumber: string } }) => {
 	const page = params.pageNumber ? parseInt(params.pageNumber) : 1;
 	const offset = (page - 1) * 20;
 	const res = await fetch(`https://naszsklep-api.vercel.app/api/products?take=20&offset=${offset}`);
@@ -11,9 +11,9 @@ const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
 	return (
 		<div>
 			<ProductsList products={products} />
-			<Pagination currentPage={page} />
+			<Pagination currentPage={parseInt(params.pageNumber)} />
 		</div>
 	);
 };
 
-export default ProductsPage;
+export default ProductsPagePaginated;

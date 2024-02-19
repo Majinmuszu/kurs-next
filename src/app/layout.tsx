@@ -25,7 +25,7 @@ export default function RootLayout({
 						</li>
 						<li>
 							<ActiveLink href="/products" exact={false}>
-								Products
+								All
 							</ActiveLink>
 						</li>
 					</ul>

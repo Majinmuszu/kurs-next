@@ -2,13 +2,11 @@ import { ProductItemType } from "@/types/product";
 import ProductCard from "@/ui/molecules/ProductCard";
 import React from "react";
 
-// type ProductsListProps = {
-// 	products: ProductItemType[];
-// };
+type ProductsListProps = {
+	products: ProductItemType[];
+};
 
-const ProductsList = async () => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products?take=20");
-	const products = (await res.json()) as ProductItemType[];
+const ProductsList = async ({ products }: ProductsListProps) => {
 	return (
 		<ul
 			className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
