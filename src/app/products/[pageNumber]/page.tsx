@@ -11,7 +11,7 @@ const ProductsPagePaginated = async ({ params }: { params: { pageNumber: string 
 	return (
 		<div>
 			<ProductsList products={products} />
-			<Pagination currentPage={parseInt(params.pageNumber)} />
+			<Pagination currentPage={page} />
 		</div>
 	);
 };

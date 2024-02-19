@@ -7,7 +7,7 @@ import React from "react";
 
 type ActiveLinkType = {
 	children: string;
-	href: Route;
+	href: Route | URL;
 	exact?: boolean;
 };
 
