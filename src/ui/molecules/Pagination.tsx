@@ -17,7 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
 					{currentPage - 2}
 				</Link>
 			)}
-			{currentPage - 1 > 1 && (
+			{currentPage - 1 >= 1 && (
 				<Link href={`/products/${currentPage - 1}`} className="mx-1 rounded bg-gray-200 px-3 py-1">
 					{currentPage - 1}
 				</Link>
