@@ -9,10 +9,10 @@ const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
 	const offset = (page - 1) * 20;
 	const products = await getProductsWithOffset(offset);
 	return (
-		<div>
+		<section>
 			<ProductsList products={products} />
 			<Pagination currentPage={page} />
-		</div>
+		</section>
 	);
 };
 
