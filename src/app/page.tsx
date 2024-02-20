@@ -5,7 +5,7 @@ import ProductsList from "@/ui/organisms/ProductsList";
 export default async function Home() {
 	const products = await getProductsWithOffset(0);
 	return (
-		<section className="my-8">
+		<section>
 			<ProductsList products={products} />
 		</section>
 	);
