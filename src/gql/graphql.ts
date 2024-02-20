@@ -272,10 +272,12 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
-export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsGetListQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
 
 
-export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> }> } };
+export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> }>, meta: { count: number, total: number } } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -293,8 +295,8 @@ export class TypedDocumentString<TResult, TVariables>
 }
 
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList {
-  products(take: 10) {
+    query ProductsGetList($offset: Int) {
+  products(take: 10, skip: $offset) {
     data {
       id
       name
@@ -306,6 +308,10 @@ export const ProductsGetListDocument = new TypedDocumentString(`
       categories {
         name
       }
+    }
+    meta {
+      count
+      total
     }
   }
 }

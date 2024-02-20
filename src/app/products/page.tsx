@@ -5,13 +5,13 @@ import ProductsList from "@/ui/organisms/ProductsList";
 import React from "react";
 
 const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
-	// const page = params.pageNumber ? parseInt(params.pageNumber) : 1;
-	// const offset = (page - 1) * 20;
-	const products = await executeGraphql(ProductsGetListDocument);
+	const page = params.pageNumber ? parseInt(params.pageNumber) : 1;
+	const offset = (page - 1) * 10;
+	const products = await executeGraphql(ProductsGetListDocument, { offset });
 	return (
 		<section>
 			<ProductsList products={products} />
-			{/* <Pagination currentPage={page} /> */}
+			<Pagination currentPage={page} />
 		</section>
 	);
 };

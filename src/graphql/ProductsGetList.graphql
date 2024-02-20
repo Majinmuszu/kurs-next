@@ -1,5 +1,5 @@
-query ProductsGetList {
-	products(take: 10) {
+query ProductsGetList($offset: Int) {
+	products(take: 10, skip: $offset) {
 		data {
 			id
 			name
@@ -11,6 +11,10 @@ query ProductsGetList {
 			categories {
 				name
 			}
+		}
+		meta {
+			count
+			total
 		}
 	}
 }
