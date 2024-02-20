@@ -1,5 +1,4 @@
 import { getProductsWithOffset } from "@/api/productApi";
-import { ProductItemType } from "@/types/product";
 import Pagination from "@/ui/molecules/Pagination";
 import ProductsList from "@/ui/organisms/ProductsList";
 import React from "react";

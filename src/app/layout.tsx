@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={`${inter.className} min-h-screen `}>
 				<Navigation />
-				<main className="container mx-auto flex-1 p-4">{children}</main>
+				<main className="container mx-auto min-h-full flex-1 p-4">{children}</main>
 				<Footer />
 			</body>
 		</html>
