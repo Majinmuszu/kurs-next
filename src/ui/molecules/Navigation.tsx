@@ -18,6 +18,11 @@ const Navigation = () => {
 						Categories
 					</ActiveLink>
 				</li>
+				<li>
+					<ActiveLink href="/collections" exact={false}>
+						Collections
+					</ActiveLink>
+				</li>
 			</ul>
 		</nav>
 	);
