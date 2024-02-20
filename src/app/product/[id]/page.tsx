@@ -1,10 +1,7 @@
 import { getProductById } from "@/api/productApi";
-import { ProductItemType } from "@/types/product";
 import { Metadata } from "next/types";
 import React from "react";
 import Image from "next/image";
-import { placeholder } from "@/helpers/placeholder";
-const probe = require("probe-image-size");
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
 	const product = await getProductById(params.id);
@@ -17,20 +14,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 const ProductPage = async ({ params }: { params: { id: string } }) => {
 	const product = await getProductById(params.id);
-	const blur = await placeholder(product.image);
-	const imgSize = await probe(product.image);
 	return (
 		<article className="justify-between rounded-lg bg-white p-4 shadow-lg md:flex md:p-7">
-			<div className="relative mb-4 w-full md:mr-5 md:w-1/2">
+			<div className="relative mb-4 min-h-96 w-full md:mr-5 md:w-1/2">
 				<Image
 					src={product.image}
 					alt={product.title}
-					width={imgSize.width}
-					height={imgSize.height}
-					quality={50}
-					className="mx-auto h-auto w-full rounded-lg"
-					placeholder="blur"
-					blurDataURL={blur}
+					fill
+					className="mx-auto h-auto w-auto rounded-lg object-contain"
 				/>
 			</div>
 			<div className="mb-4 md:w-4/6">
