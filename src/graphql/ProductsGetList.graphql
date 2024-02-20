@@ -3,16 +3,14 @@ query ProductsGetList {
 		data {
 			id
 			name
-			description
-			categories {
-				name
-				slug
-			}
 			images {
 				url
+				alt
 			}
 			price
-			rating
+			categories {
+				name
+			}
 		}
 	}
 }

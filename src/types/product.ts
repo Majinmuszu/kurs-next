@@ -1,14 +1,12 @@
-export type ProductItemType = {
+export type ProductListItemType = {
 	id: string;
-	title: string;
+	name: string;
 	price: number;
-	description: string;
-	category: string;
-	rating: Rating;
-	image: string;
-	longDescription: string;
-};
-type Rating = {
-	rate: number;
-	count: number;
+	images: Array<{
+		url: string;
+		alt: string;
+	}>;
+	categories: Array<{
+		name: string;
+	}>;
 };

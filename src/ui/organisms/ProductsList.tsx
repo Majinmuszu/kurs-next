@@ -1,18 +1,19 @@
-import { ProductItemType } from "@/types/product";
+import { ProductsGetListQuery } from "@/gql/graphql";
 import ProductCard from "@/ui/molecules/ProductCard";
 import React from "react";
 
 type ProductsListProps = {
-	products: ProductItemType[];
+	products: ProductsGetListQuery;
 };
 
 const ProductsList = async ({ products }: ProductsListProps) => {
+	const data = products.products.data;
 	return (
 		<ul
 			className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4"
 			data-testid="products-list"
 		>
-			{products.map((product) => (
+			{data.map((product) => (
 				<ProductCard product={product} key={product.id} />
 			))}
 		</ul>
