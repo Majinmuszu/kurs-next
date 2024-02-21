@@ -22,6 +22,9 @@ const CollectionPage = async ({ params }: { params: { collectionSlug: string } }
 	return (
 		<section>
 			<h1 className="mb-5 text-4xl font-bold">{collection.name}</h1>
+			{collection.description && (
+				<p className="mb-5 text-2xl font-medium italic text-gray-800">{collection.description}</p>
+			)}
 			<ProductsList products={collection.products} />
 		</section>
 	);

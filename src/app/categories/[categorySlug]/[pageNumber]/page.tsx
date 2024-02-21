@@ -32,6 +32,9 @@ const CategoryPage = async ({ params }: { params: CategoryPageProps }) => {
 	return (
 		<section>
 			<h1 className="mb-5 text-4xl font-bold">{category.name}</h1>
+			{category.description && (
+				<p className="mb-5 text-2xl font-medium italic text-gray-800">{category.description}</p>
+			)}
 			<ProductsList products={category.products} />
 		</section>
 	);
