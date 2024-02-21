@@ -1,0 +1,10 @@
+query CategoryGetProductsList($slug: String) {
+	category(slug: $slug) {
+		products {
+			...ProductListItem
+		}
+		description
+		name
+		slug
+	}
+}

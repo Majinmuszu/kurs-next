@@ -1,10 +1,39 @@
 import React from "react";
+import { notFound } from "next/navigation";
+import { executeGraphql } from "@/api/api";
+import { CategoriesGetListDocument, CategoryGetProductsListDocument } from "@/gql/graphql";
+import { ProductsList } from "@/ui/organisms/ProductsList";
 
-const CategoryPage = ({ params }: { params: { categorySlug: string; pageNumber: string } }) => {
+type CategoryPageProps = {
+	categorySlug: string;
+	pageNumber: string;
+};
+export async function generateStaticParams() {
+	const res = await executeGraphql(CategoriesGetListDocument);
+	// const total = Math.ceil(res.categories.meta.total / 10);
+	const params: CategoryPageProps[] = res.categories.data.map((c) => {
+		return { categorySlug: c.slug, pageNumber: "1" };
+	});
+	// for (let i = 1; i <= total; i++) {
+	// 	params.push({ pageNumber: i.toString() });
+	// }
+	return params;
+}
+
+const CategoryPage = async ({ params }: { params: CategoryPageProps }) => {
+	const { category } = await executeGraphql(CategoryGetProductsListDocument, {
+		slug: params.categorySlug,
+	});
+
+	if (!category) {
+		throw notFound();
+	}
+
 	return (
-		<div>
-			CategoryPage <br /> cat: {params.categorySlug} <br /> page: {params.pageNumber}
-		</div>
+		<section>
+			<h1 className="mb-5 text-4xl font-bold">{category.name}</h1>
+			<ProductsList products={category.products} />
+		</section>
 	);
 };
 
