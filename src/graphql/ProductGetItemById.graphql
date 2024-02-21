@@ -1,0 +1,5 @@
+query ProductGetItemById($id: ID) {
+	product(id: $id) {
+		...ProductItem
+	}
+}
