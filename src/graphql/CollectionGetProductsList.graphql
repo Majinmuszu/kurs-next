@@ -1,0 +1,10 @@
+query CollectionGetProductsList($slug: String) {
+	collection(slug: $slug) {
+		products {
+			...ProductListItem
+		}
+		description
+		name
+		slug
+	}
+}

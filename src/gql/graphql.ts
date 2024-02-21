@@ -284,6 +284,13 @@ export type CategoryGetProductsListQueryVariables = Exact<{
 
 export type CategoryGetProductsListQuery = { category?: { description: string, name: string, slug: string, products: Array<{ id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> }> } | null };
 
+export type CollectionGetProductsListQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CollectionGetProductsListQuery = { collection?: { description: string, name: string, slug: string, products: Array<{ id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> }> } | null };
+
 export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -404,6 +411,29 @@ export const CategoryGetProductsListDocument = new TypedDocumentString(`
     name
   }
 }`) as unknown as TypedDocumentString<CategoryGetProductsListQuery, CategoryGetProductsListQueryVariables>;
+export const CollectionGetProductsListDocument = new TypedDocumentString(`
+    query CollectionGetProductsList($slug: String) {
+  collection(slug: $slug) {
+    products {
+      ...ProductListItem
+    }
+    description
+    name
+    slug
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  images {
+    url
+    alt
+  }
+  price
+  categories {
+    name
+  }
+}`) as unknown as TypedDocumentString<CollectionGetProductsListQuery, CollectionGetProductsListQueryVariables>;
 export const CollectionsGetListDocument = new TypedDocumentString(`
     query CollectionsGetList {
   collections {
