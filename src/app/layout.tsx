@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navigation } from "@/ui/molecules/Navigation";
 import { Footer } from "@/ui/molecules/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
 	title: "My awesome szop",
@@ -20,7 +20,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${inter.className} min-h-screen `}>
 				<Navigation />
-				<main className="container mx-auto min-h-full flex-1 p-4 pt-20">{children}</main>
+				<main className="container mx-auto min-h-full flex-1 p-4 pt-28">{children}</main>
 				<Footer />
 			</body>
 		</html>

@@ -307,6 +307,13 @@ export type ProductItemFragment = { description: string, id: string, name: strin
 
 export type ProductListItemFragment = { id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> };
 
+export type ProductsGetBySearchQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ProductsGetBySearchQuery = { products: { data: Array<{ id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> }>, meta: { count: number, total: number } } };
+
 export type ProductsGetListQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -484,6 +491,30 @@ export const ProductGetItemByIdDocument = new TypedDocumentString(`
     width
   }
 }`) as unknown as TypedDocumentString<ProductGetItemByIdQuery, ProductGetItemByIdQueryVariables>;
+export const ProductsGetBySearchDocument = new TypedDocumentString(`
+    query ProductsGetBySearch($search: String) {
+  products(take: 10, search: $search) {
+    data {
+      ...ProductListItem
+    }
+    meta {
+      count
+      total
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  images {
+    url
+    alt
+  }
+  price
+  categories {
+    name
+  }
+}`) as unknown as TypedDocumentString<ProductsGetBySearchQuery, ProductsGetBySearchQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($offset: Int) {
   products(take: 10, skip: $offset) {

@@ -21,6 +21,7 @@ const documents = {
     "query ProductGetItemById($id: ID) {\n  product(id: $id) {\n    ...ProductItem\n  }\n}": types.ProductGetItemByIdDocument,
     "fragment ProductItem on Product {\n  description\n  id\n  name\n  price\n  rating\n  slug\n  categories {\n    name\n    slug\n  }\n  collections {\n    name\n    slug\n  }\n  images {\n    alt\n    height\n    url\n    width\n  }\n}": types.ProductItemFragmentDoc,
     "fragment ProductListItem on Product {\n  id\n  name\n  images {\n    url\n    alt\n  }\n  price\n  categories {\n    name\n  }\n}": types.ProductListItemFragmentDoc,
+    "query ProductsGetBySearch($search: String) {\n  products(take: 10, search: $search) {\n    data {\n      ...ProductListItem\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetBySearchDocument,
     "query ProductsGetList($offset: Int) {\n  products(take: 10, skip: $offset) {\n    data {\n      ...ProductListItem\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetListDocument,
 };
 
@@ -52,6 +53,10 @@ export function graphql(source: "fragment ProductItem on Product {\n  descriptio
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment ProductListItem on Product {\n  id\n  name\n  images {\n    url\n    alt\n  }\n  price\n  categories {\n    name\n  }\n}"): typeof import('./graphql').ProductListItemFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductsGetBySearch($search: String) {\n  products(take: 10, search: $search) {\n    data {\n      ...ProductListItem\n    }\n    meta {\n      count\n      total\n    }\n  }\n}"): typeof import('./graphql').ProductsGetBySearchDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
