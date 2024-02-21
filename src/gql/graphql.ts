@@ -272,6 +272,11 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesGetListQuery = { categories: { data: Array<{ name: string, slug: string, description: string, id: string, products: Array<{ images: Array<{ url: string, alt: string }> }> }>, meta: { total: number, count: number } } };
+
 export type ProductGetItemByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
 }>;
@@ -342,6 +347,28 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CategoriesGetListDocument = new TypedDocumentString(`
+    query CategoriesGetList {
+  categories(take: 10) {
+    data {
+      name
+      slug
+      description
+      id
+      products {
+        images {
+          url
+          alt
+        }
+      }
+    }
+    meta {
+      total
+      count
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesGetListQuery, CategoriesGetListQueryVariables>;
 export const ProductGetItemByIdDocument = new TypedDocumentString(`
     query ProductGetItemById($id: ID) {
   product(id: $id) {

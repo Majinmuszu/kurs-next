@@ -1,0 +1,20 @@
+query CategoriesGetList {
+	categories(take: 10) {
+		data {
+			name
+			slug
+			description
+			id
+			products {
+				images {
+					url
+					alt
+				}
+			}
+		}
+		meta {
+			total
+			count
+		}
+	}
+}
