@@ -1,0 +1,20 @@
+query CollectionsGetList {
+	collections {
+		data {
+			slug
+			description
+			name
+			id
+			products {
+				images {
+					url
+					alt
+				}
+			}
+		}
+		meta {
+			count
+			total
+		}
+	}
+}
