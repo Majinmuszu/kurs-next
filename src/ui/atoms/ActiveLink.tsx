@@ -40,4 +40,4 @@ const ActiveLink = ({ children, href, exact = true }: ActiveLinkType) => {
 	);
 };
 
-export default ActiveLink;
+export { ActiveLink };

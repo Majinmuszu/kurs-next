@@ -1,6 +1,6 @@
-import { ProductsGetListQuery } from "@/gql/graphql";
-import ProductCard from "@/ui/molecules/ProductCard";
 import React from "react";
+import { type ProductsGetListQuery } from "@/gql/graphql";
+import { ProductCard } from "@/ui/molecules/ProductCard";
 
 type ProductsListProps = {
 	products: ProductsGetListQuery;
@@ -20,4 +20,4 @@ const ProductsList = async ({ products }: ProductsListProps) => {
 	);
 };
 
-export default ProductsList;
+export { ProductsList };

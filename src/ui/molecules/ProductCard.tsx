@@ -1,10 +1,10 @@
-import { ProductListItemType } from "@/types/product";
-import ProductCardImage from "@/ui/atoms/ProductCardImage";
-import ProductCardInfo from "@/ui/atoms/ProductCardInfo";
 import Link from "next/link";
 import React from "react";
+import { type ProductListItemFragment } from "@/gql/graphql";
+import { ProductCardImage } from "@/ui/atoms/ProductCardImage";
+import { ProductCardInfo } from "@/ui/atoms/ProductCardInfo";
 
-const ProductCard = ({ product }: { product: ProductListItemType }) => {
+const ProductCard = ({ product }: { product: ProductListItemFragment }) => {
 	return (
 		<li>
 			<Link href={`/product/${product.id}`}>
@@ -21,4 +21,4 @@ const ProductCard = ({ product }: { product: ProductListItemType }) => {
 	);
 };
 
-export default ProductCard;
+export { ProductCard };

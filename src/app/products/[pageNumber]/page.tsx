@@ -1,8 +1,8 @@
+import React from "react";
 import { executeGraphql } from "@/api/api";
 import { ProductsGetListDocument } from "@/gql/graphql";
-import Pagination from "@/ui/molecules/Pagination";
-import ProductsList from "@/ui/organisms/ProductsList";
-import React from "react";
+import {Pagination} from "@/ui/molecules/Pagination";
+import {ProductsList} from "@/ui/organisms/ProductsList";
 
 export async function generateStaticParams() {
 	const res = await executeGraphql(ProductsGetListDocument, { offset: 0 });

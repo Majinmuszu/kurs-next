@@ -49,4 +49,4 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
 	);
 };
 
-export default Pagination;
+export  {Pagination};

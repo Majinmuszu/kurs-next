@@ -9,4 +9,4 @@ const ProductCardImage = async ({ src, alt }: { src: string; alt: string }) => {
 	);
 };
 
-export default ProductCardImage;
+export {ProductCardImage};

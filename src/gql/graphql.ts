@@ -272,6 +272,8 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type ProductListItemFragment = { id: string, name: string, price: number, images: Array<{ url: string, alt: string }>, categories: Array<{ name: string }> };
+
 export type ProductsGetListQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -293,21 +295,25 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-
+export const ProductListItemFragmentDoc = new TypedDocumentString(`
+    fragment ProductListItem on Product {
+  id
+  name
+  images {
+    url
+    alt
+  }
+  price
+  categories {
+    name
+  }
+}
+    `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($offset: Int) {
   products(take: 10, skip: $offset) {
     data {
-      id
-      name
-      images {
-        url
-        alt
-      }
-      price
-      categories {
-        name
-      }
+      ...ProductListItem
     }
     meta {
       count
@@ -315,4 +321,15 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+    fragment ProductListItem on Product {
+  id
+  name
+  images {
+    url
+    alt
+  }
+  price
+  categories {
+    name
+  }
+}`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;

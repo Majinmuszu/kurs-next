@@ -20,4 +20,4 @@ const ProductCardInfo = ({
 	);
 };
 
-export default ProductCardInfo;
+export {ProductCardInfo};

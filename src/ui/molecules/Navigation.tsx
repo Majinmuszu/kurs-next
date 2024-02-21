@@ -1,5 +1,5 @@
-import ActiveLink from "@/ui/atoms/ActiveLink";
 import React from "react";
+import {ActiveLink} from "@/ui/atoms/ActiveLink";
 
 const Navigation = () => {
 	return (
@@ -28,4 +28,4 @@ const Navigation = () => {
 	);
 };
 
-export default Navigation;
+export {Navigation};
