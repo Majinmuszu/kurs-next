@@ -34,10 +34,11 @@ const SearchInput = () => {
 				type="text"
 				aria-label="search"
 				placeholder="Search"
+				role="searchbox"
 				className="rounded-md border border-gray-300 px-4 py-2 transition duration-300 focus:border-blue-500 focus:outline-none"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
-				onKeyPress={handleKeyPress}
+				onKeyDown={handleKeyPress}
 			/>
 			<SearchIcon
 				cls="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
