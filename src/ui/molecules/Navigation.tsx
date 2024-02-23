@@ -16,13 +16,13 @@ const Navigation = () => {
 						</ActiveLink>
 					</li>
 					<li>
-						<ActiveLink href="/categories" exact={false}>
-							Categories
+						<ActiveLink href="/collections" exact={false}>
+							Collections
 						</ActiveLink>
 					</li>
 					<li>
-						<ActiveLink href="/collections" exact={false}>
-							Collections
+						<ActiveLink href="/categories" exact={false}>
+							Categories
 						</ActiveLink>
 					</li>
 				</ul>
