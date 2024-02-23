@@ -1,10 +1,11 @@
 import { type Metadata } from "next/types";
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { executeGraphql } from "@/api/api";
 import { ProductGetItemByIdDocument } from "@/gql/graphql";
 import { RelatedProducts } from "@/ui/organisms/RelatedProducts";
+import { Loader } from "@/ui/atoms/Loader";
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
 	const { product } = await executeGraphql(ProductGetItemByIdDocument, { id: params.id });
@@ -62,11 +63,13 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
 				</div>
 			</article>
 			<aside className="mt-4">
-				<h2>Related products</h2>
-				<RelatedProducts
-					categorySlug={product.categories[0] ? product.categories[0].slug : null}
-					collectionSlug={product.collections[0] ? product.collections[0].slug : null}
-				/>
+				<h2 className="mb-2 text-xl font-semibold">Related products</h2>
+				<Suspense fallback={<Loader />}>
+					<RelatedProducts
+						categorySlug={product.categories[0] ? product.categories[0].slug : null}
+						collectionSlug={product.collections[0] ? product.collections[0].slug : null}
+					/>
+				</Suspense>
 			</aside>
 		</>
 	);
