@@ -1,17 +1,24 @@
 import React from "react";
+import { notFound } from "next/navigation";
 import { executeGraphql } from "@/api/api";
 import {
 	CategoryGetProductsListDocument,
 	CollectionGetProductsListDocument,
 	type ProductListItemFragment,
 	ProductsGetListDocument,
+	ProductGetItemByIdDocument,
 } from "@/gql/graphql";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 type RelatedProductsProps = {
-	categorySlug: string | null;
-	collectionSlug: string | null;
+	productId: string;
 };
-const RelatedProducts = async ({ categorySlug, collectionSlug }: RelatedProductsProps) => {
+const RelatedProducts = async ({ productId }: RelatedProductsProps) => {
+	const { product } = await executeGraphql(ProductGetItemByIdDocument, { id: productId });
+	if (!product) {
+		throw notFound();
+	}
+	const categorySlug = product.categories[0] ? product.categories[0].slug : null;
+	const collectionSlug = product.collections[0] ? product.collections[0].slug : null;
 	let relatedProducts: ProductListItemFragment[] = [];
 	if (categorySlug) {
 		const { category } = await executeGraphql(CategoryGetProductsListDocument, {
