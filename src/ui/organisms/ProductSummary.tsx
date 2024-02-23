@@ -17,6 +17,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 						src={product.images[0].url}
 						alt={product.name}
 						fill
+						loading="eager"
 						quality={50}
 						className="mx-auto h-auto w-auto rounded-lg object-contain"
 					/>
