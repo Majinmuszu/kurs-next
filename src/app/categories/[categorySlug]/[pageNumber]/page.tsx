@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { executeGraphql } from "@/api/api";
 import { CategoriesGetListDocument, CategoryGetProductsListDocument } from "@/gql/graphql";
 import { ProductsList } from "@/ui/organisms/ProductsList";
+import { Pagination } from "@/ui/molecules/Pagination";
 
 type CategoryPageProps = {
 	categorySlug: string;
@@ -36,6 +37,7 @@ const CategoryPage = async ({ params }: { params: CategoryPageProps }) => {
 				<p className="mb-5 text-2xl font-medium italic text-gray-800">{category.description}</p>
 			)}
 			<ProductsList products={category.products} />
+			<Pagination currentPage={1} totalPages={1} />
 		</section>
 	);
 };
