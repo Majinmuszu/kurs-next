@@ -49,7 +49,7 @@ const CartPage = async () => {
 					<div className="">
 						<p className="text-xl font-black">{cartItem.product.name}</p>
 						<p className="font-bold">
-							Price: <span className="text-green-800">${cartItem.product.price}</span>
+							Price: <span className="text-green-800">${cartItem.product.price / 100}</span>
 						</p>
 						<p className="flex items-center gap-3 font-bold">
 							Quantity:
@@ -80,7 +80,7 @@ const CartPage = async () => {
 			))}
 
 			<div className="mt-4 flex items-center justify-between">
-				<p className="font-bold">Total: ${calculateTotalPrice()}</p>
+				<p className="font-bold">Total: ${calculateTotalPrice() / 100}</p>
 				<button
 					// onClick={handlePay}
 					className="rounded bg-green-500 px-4 py-2 text-white"
