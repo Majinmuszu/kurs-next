@@ -18,9 +18,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 const ProductPage = async ({ params }: { params: { id: string } }) => {
 	return (
 		<>
-			<Suspense fallback={<Loader />}>
-				<ProductSummary id={params.id} />
-			</Suspense>
+			<ProductSummary id={params.id} />
 
 			<aside className="mt-4">
 				<h2 className="mb-2 text-xl font-semibold">Related products</h2>
