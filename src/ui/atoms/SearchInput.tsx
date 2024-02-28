@@ -29,13 +29,13 @@ const SearchInput = () => {
 	};
 
 	return (
-		<div className="relative">
+		<div className="relative w-4/5 sm:w-auto">
 			<input
 				type="text"
 				aria-label="search"
 				placeholder="Search"
 				role="searchbox"
-				className="rounded-md border border-gray-300 px-4 py-2 transition duration-300 focus:border-blue-500 focus:outline-none"
+				className="w-full rounded-md border border-gray-300 px-4 py-2 transition duration-300 focus:border-blue-500 focus:outline-none"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleKeyPress}

@@ -1,11 +1,13 @@
 import React from "react";
+import Link from "next/link";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { SearchInput } from "@/ui/atoms/SearchInput";
+import { CartIcon } from "@/ui/icons/CartIcon";
 
 const Navigation = () => {
 	return (
 		<nav className="fixed z-10 flex w-full  bg-blue-500 opacity-95" role="navigation">
-			<div className="container mx-auto flex items-center justify-between space-x-4 p-4">
+			<div className="container mx-auto flex flex-col items-center justify-between space-x-4 p-4 sm:flex-row">
 				<ul className="flex space-x-4 p-4">
 					<li>
 						<ActiveLink href="/">Home</ActiveLink>
@@ -26,7 +28,13 @@ const Navigation = () => {
 						</ActiveLink>
 					</li>
 				</ul>
-				<SearchInput />
+				<div className="flex items-center gap-3">
+					<SearchInput />
+					<Link href="/cart" className="intems-center flex gap-1 font-bold text-white">
+						<CartIcon />
+						12
+					</Link>
+				</div>
 			</div>
 		</nav>
 	);
