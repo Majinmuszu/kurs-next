@@ -2,6 +2,7 @@
 const nextConfig = {
 	experimental: {
 		typedRoutes: true,
+		mdxRs: true,
 	},
 	images: {
 		domains: ["naszsklep-api.vercel.app", "static-ourstore.hyperfunctor.com"],

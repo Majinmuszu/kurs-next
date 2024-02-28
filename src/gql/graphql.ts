@@ -272,6 +272,14 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CartFindOrCreateMutationMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  input?: InputMaybe<MutationCartFindOrCreateInput>;
+}>;
+
+
+export type CartFindOrCreateMutationMutation = { cartFindOrCreate: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number, images: Array<{ url: string, alt: string }> } }> } };
+
 export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -373,6 +381,25 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CartFindOrCreateMutationDocument = new TypedDocumentString(`
+    mutation CartFindOrCreateMutation($id: ID, $input: MutationCartFindOrCreateInput = {}) {
+  cartFindOrCreate(id: $id, input: $input) {
+    id
+    items {
+      quantity
+      product {
+        id
+        name
+        images {
+          url
+          alt
+        }
+        price
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CartFindOrCreateMutationMutation, CartFindOrCreateMutationMutationVariables>;
 export const CategoriesGetListDocument = new TypedDocumentString(`
     query CategoriesGetList {
   categories(take: 10) {

@@ -1,4 +1,11 @@
-import { type TypedDocumentString } from "@/gql/graphql";
+import { cookies } from "next/headers";
+import {
+	CartFindOrCreateMutationDocument,
+	type Exact,
+	type InputMaybe,
+	type MutationCartFindOrCreateInput,
+	type TypedDocumentString,
+} from "@/gql/graphql";
 
 type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
@@ -32,4 +39,53 @@ export const executeGraphql = async <TResult, TVariables>(
 	}
 
 	return graphqlResponse.data;
+};
+
+export const getOrCreateCart = async (productId?: string) => {
+	const cartId = cookies().get("cartId")?.value;
+	let options: Exact<{
+		id?: InputMaybe<string> | undefined;
+		input?: InputMaybe<MutationCartFindOrCreateInput> | undefined;
+	}>;
+	if (!productId) {
+		if (!cartId) {
+			throw new Error("something went wrong...");
+		} // !productId && !cartId
+		options = {
+			id: cartId,
+		}; // !productId & cartId
+	} else {
+		if (!cartId) {
+			options = {
+				input: {
+					items: [
+						{
+							productId: productId,
+							quantity: 1,
+						},
+					],
+				},
+			};
+		} // productId && !cartId
+		options = {
+			id: cartId,
+			input: {
+				items: [
+					{
+						productId: productId,
+						quantity: 1,
+					},
+				],
+			},
+		}; // productId && cartId
+	}
+	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, options);
+	if (cartFindOrCreate.id) {
+		if (!cartId) {
+			cookies().set("cartId", cartFindOrCreate.id);
+		}
+		return cartFindOrCreate;
+	} else {
+		throw new Error("Can't find or create cart, bruh..");
+	}
 };

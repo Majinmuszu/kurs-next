@@ -1,0 +1,20 @@
+mutation CartFindOrCreateMutation(
+	$id: ID # = "e3700e2d-04c5-43f0-86f3-af208b175f98"
+	$input: MutationCartFindOrCreateInput = {} # = { items: { productId: "", quantity: 1 } }
+) {
+	cartFindOrCreate(id: $id, input: $input) {
+		id
+		items {
+			quantity
+			product {
+				id
+				name
+				images {
+					url
+					alt
+				}
+				price
+			}
+		}
+	}
+}

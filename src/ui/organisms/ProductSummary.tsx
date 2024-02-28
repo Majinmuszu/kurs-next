@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { executeGraphql } from "@/api/api";
+import { executeGraphql, getOrCreateCart } from "@/api/api";
 import { ProductGetItemByIdDocument } from "@/gql/graphql";
 
 const ProductSummary = async ({ id }: { id: string }) => {
@@ -9,6 +9,12 @@ const ProductSummary = async ({ id }: { id: string }) => {
 	if (!product) {
 		throw notFound();
 	}
+
+	const addProductToCartAction = async () => {
+		"use server";
+		await getOrCreateCart(product.id);
+	};
+
 	return (
 		<article className="justify-between rounded-lg bg-white p-4 shadow-lg md:flex md:p-7">
 			<div className="relative mb-4 min-h-96 w-full md:mr-5 md:w-1/2">
@@ -29,19 +35,23 @@ const ProductSummary = async ({ id }: { id: string }) => {
 					<p className="mb-4 text-xl font-light">{product.categories[0].name}</p>
 					<p className="text-2xl text-green-600 md:text-3xl">{product.price / 100} zł</p>
 				</div>
-				<div className="mb-4 items-center justify-between lg:flex lg:flex-row-reverse">
-					{product.rating && (
-						<div className="mb-4 lg:mb-0">
-							<span className="inline text-yellow-500">
-								{Array(Math.round(product.rating)).fill("★").join("")}
-							</span>
-							{/* <span className="text-gray-500">({product.rating.count} opinii)</span> */}
-						</div>
-					)}
-					<button className="rounded-full bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+
+				{product.rating && (
+					<div className="mb-4">
+						<span className="inline text-yellow-500">
+							{Array(Math.round(product.rating)).fill("★").join("")}
+						</span>
+						{/* <span className="text-gray-500">({product.rating.count} opinii)</span> */}
+					</div>
+				)}
+				<form action={addProductToCartAction} className="mb-4">
+					<button
+						type="submit"
+						className="rounded-full bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+					>
 						Dodaj do koszyka
 					</button>
-				</div>
+				</form>
 				<div className="mb-4">
 					<p className="font-semibold text-gray-700">{product.description}</p>
 				</div>
