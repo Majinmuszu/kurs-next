@@ -1,8 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { getOrCreateCart } from "@/api/api";
 
 const CartPage = async () => {
+	const cartId = cookies().get("cartId")?.value;
+
+	if (!cartId) {
+		redirect("/");
+		// return <div>Your cart is empty</div>;
+	}
+
 	const res = await getOrCreateCart();
 	const calculateTotalPrice = () => {
 		return res.items.reduce((total, item) => total + item.quantity * item.product.price, 0);
