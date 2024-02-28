@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { executeGraphql, getOrCreateCart } from "@/api/api";
 import { ProductGetItemByIdDocument } from "@/gql/graphql";
+import { AddToCartButton } from "@/ui/atoms/AddToCartBtn";
 
 const ProductSummary = async ({ id }: { id: string }) => {
 	const { product } = await executeGraphql(ProductGetItemByIdDocument, { id });
@@ -33,7 +34,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 				<div className="mb-4">
 					<h1 className="mb-1 text-4xl font-bold">{product.name}</h1>
 					<p className="mb-4 text-xl font-light">{product.categories[0].name}</p>
-					<p className="text-2xl text-green-600 md:text-3xl">{product.price / 100} zł</p>
+					<p className="text-2xl text-green-600 md:text-3xl">${product.price / 100}</p>
 				</div>
 
 				{product.rating && (
@@ -45,12 +46,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 					</div>
 				)}
 				<form action={addProductToCartAction} className="mb-4">
-					<button
-						type="submit"
-						className="rounded-full bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-					>
-						Dodaj do koszyka
-					</button>
+					<AddToCartButton />
 				</form>
 				<div className="mb-4">
 					<p className="font-semibold text-gray-700">{product.description}</p>
