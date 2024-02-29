@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getOrCreateCart } from "@/api/api";
+import { getCartFromCookie } from "@/api/api";
 import { ItemQuantityManager } from "@/ui/atoms/ItemQuantityManager";
 
 const CartPage = async () => {
@@ -13,7 +13,7 @@ const CartPage = async () => {
 		// return <div>Your cart is empty</div>;
 	}
 
-	const res = await getOrCreateCart();
+	const res = await getCartFromCookie();
 
 	if (res.items.length < 1) {
 		redirect("/");

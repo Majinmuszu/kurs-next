@@ -2,9 +2,6 @@ import { cookies } from "next/headers";
 import {
 	CartAddItemMutationDocument,
 	CartFindOrCreateMutationDocument,
-	type Exact,
-	type InputMaybe,
-	type MutationCartFindOrCreateInput,
 	type TypedDocumentString,
 } from "@/gql/graphql";
 
@@ -45,7 +42,7 @@ export const executeGraphql = async <TResult, TVariables>(
 export const addToCart = async (productId: string) => {
 	const cartId = cookies().get("cartId")?.value;
 	if (!cartId) {
-		const cart = await getOrCreateCart(productId);
+		const cart = await createCartAndAddItem(productId);
 		return cart;
 	} else {
 		const cartAddItem = await executeGraphql(CartAddItemMutationDocument, {
@@ -59,51 +56,29 @@ export const addToCart = async (productId: string) => {
 	}
 };
 
-export const getOrCreateCart = async (productId?: string) => {
+export const getCartFromCookie = async () => {
 	const cartId = cookies().get("cartId")?.value;
-	let options: Exact<{
-		id?: InputMaybe<string> | undefined;
-		input?: InputMaybe<MutationCartFindOrCreateInput> | undefined;
-	}>;
-	if (!productId) {
-		if (!cartId) {
-			throw new Error("something went wrong...");
-		} // !productId && !cartId
-		options = {
-			id: cartId,
-		}; // !productId & cartId
-	} else {
-		if (!cartId) {
-			options = {
-				input: {
-					items: [
-						{
-							productId: productId,
-							quantity: 1,
-						},
-					],
+	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, {
+		id: cartId,
+	});
+	return cartFindOrCreate;
+};
+
+export const createCartAndAddItem = async (productId: string) => {
+	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, {
+		input: {
+			items: [
+				{
+					productId: productId,
+					quantity: 1,
 				},
-			};
-		} // productId && !cartId
-		options = {
-			id: cartId,
-			input: {
-				items: [
-					{
-						productId: productId,
-						quantity: 1,
-					},
-				],
-			},
-		}; // productId && cartId
-	}
-	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, options);
+			],
+		},
+	});
 	if (cartFindOrCreate.id) {
-		if (!cartId) {
-			cookies().set("cartId", cartFindOrCreate.id);
-		}
+		cookies().set("cartId", cartFindOrCreate.id);
 		return cartFindOrCreate;
 	} else {
-		throw new Error("Can't find or create cart, bruh..");
+		throw new Error("Can't create cart, bruh..");
 	}
 };
