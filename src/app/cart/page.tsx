@@ -3,6 +3,7 @@ import Image from "next/image";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getOrCreateCart } from "@/api/api";
+import { ItemQuantityManager } from "@/ui/atoms/ItemQuantityManager";
 
 const CartPage = async () => {
 	const cartId = cookies().get("cartId")?.value;
@@ -57,23 +58,14 @@ const CartPage = async () => {
 						<p className="font-bold">
 							Price: <span className="text-green-800">${cartItem.product.price / 100}</span>
 						</p>
-						<p className="flex items-center gap-3 font-bold">
+						<div className="flex items-center gap-3 font-bold">
 							Quantity:
-							<button
-								// onClick={() => handleDecreaseQuantity(cartItem.product.id)}
-								disabled={cartItem.quantity === 1}
-								className="rounded bg-blue-200 px-3 py-1 disabled:cursor-not-allowed disabled:bg-gray-500"
-							>
-								-
-							</button>
-							{cartItem.quantity}
-							<button
-								// onClick={() => handleIncreaseQuantity(cartItem.product.id)}
-								className="rounded bg-blue-200 px-3 py-1"
-							>
-								+
-							</button>
-						</p>
+							<ItemQuantityManager
+								cartId={res.id}
+								quantity={cartItem.quantity}
+								productId={cartItem.product.id}
+							/>
+						</div>
 						<div className="mt-2 flex space-x-2">
 							<button
 								// onClick={() => handleRemoveItem(cartItem.product.id)}
