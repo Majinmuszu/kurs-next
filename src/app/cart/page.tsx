@@ -45,7 +45,7 @@ const CartPage = async () => {
 			<h1 className="mb-4 text-2xl font-bold">Shopping Cart</h1>
 
 			{res.items.map((cartItem) => (
-				<div key={cartItem.product.id} className="flex items-center border-b py-2">
+				<div key={cartItem.product.id} className="mb-3 flex items-center rounded-xl bg-white p-4">
 					<Image
 						src={cartItem.product.images[0].url}
 						alt={cartItem.product.images[0].alt}
@@ -58,7 +58,7 @@ const CartPage = async () => {
 						<p className="font-bold">
 							Price: <span className="text-green-800">${cartItem.product.price / 100}</span>
 						</p>
-						<div className="flex items-center gap-3 font-bold">
+						<div className="flex flex-col gap-3 font-bold sm:flex-row sm:items-center">
 							Quantity:
 							<ItemQuantityManager
 								cartId={res.id}
