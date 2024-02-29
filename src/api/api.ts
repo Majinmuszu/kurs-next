@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import {
+	CartAddItemMutationDocument,
 	CartFindOrCreateMutationDocument,
 	type Exact,
 	type InputMaybe,
@@ -39,6 +40,23 @@ export const executeGraphql = async <TResult, TVariables>(
 	}
 
 	return graphqlResponse.data;
+};
+
+export const addToCart = async (productId: string) => {
+	const cartId = cookies().get("cartId")?.value;
+	if (!cartId) {
+		const cart = await getOrCreateCart(productId);
+		return cart;
+	} else {
+		const cartAddItem = await executeGraphql(CartAddItemMutationDocument, {
+			id: cartId,
+			productId,
+		});
+		if (!cartAddItem) {
+			throw new Error("Can't add to cart");
+		}
+		return cartAddItem;
+	}
 };
 
 export const getOrCreateCart = async (productId?: string) => {

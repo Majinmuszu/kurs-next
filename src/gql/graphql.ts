@@ -272,6 +272,15 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CartAddItemMutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  productId: Scalars['String']['input'];
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CartAddItemMutationMutation = { cartAddItem: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number, images: Array<{ alt: string, url: string }> } }> } };
+
 export type CartFindOrCreateMutationMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
   input?: InputMaybe<MutationCartFindOrCreateInput>;
@@ -381,6 +390,28 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CartAddItemMutationDocument = new TypedDocumentString(`
+    mutation CartAddItemMutation($id: ID!, $productId: String!, $quantity: Int = 1) {
+  cartAddItem(
+    id: $id
+    input: {item: {productId: $productId, quantity: $quantity}}
+  ) {
+    id
+    items {
+      quantity
+      product {
+        id
+        name
+        images {
+          alt
+          url
+        }
+        price
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CartAddItemMutationMutation, CartAddItemMutationMutationVariables>;
 export const CartFindOrCreateMutationDocument = new TypedDocumentString(`
     mutation CartFindOrCreateMutation($id: ID, $input: MutationCartFindOrCreateInput = {}) {
   cartFindOrCreate(id: $id, input: $input) {

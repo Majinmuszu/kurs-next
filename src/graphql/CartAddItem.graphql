@@ -1,0 +1,21 @@
+mutation CartAddItemMutation(
+	$id: ID! # = "e3700e2d-04c5-43f0-86f3-af208b175f98"
+	$productId: String!
+	$quantity: Int = 1
+) {
+	cartAddItem(id: $id, input: { item: { productId: $productId, quantity: $quantity } }) {
+		id
+		items {
+			quantity
+			product {
+				id
+				name
+				images {
+					alt
+					url
+				}
+				price
+			}
+		}
+	}
+}

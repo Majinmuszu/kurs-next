@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { executeGraphql, getOrCreateCart } from "@/api/api";
+import { addToCart, executeGraphql } from "@/api/api";
 import { ProductGetItemByIdDocument } from "@/gql/graphql";
 import { AddToCartButton } from "@/ui/atoms/AddToCartBtn";
 
@@ -13,7 +13,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 
 	const addProductToCartAction = async () => {
 		"use server";
-		await getOrCreateCart(product.id);
+		await addToCart(product.id);
 	};
 
 	return (
