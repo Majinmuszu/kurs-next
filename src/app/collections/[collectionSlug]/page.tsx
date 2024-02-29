@@ -5,7 +5,7 @@ import { CollectionGetProductsListDocument, CollectionsGetListDocument } from "@
 import { ProductsList } from "@/ui/organisms/ProductsList";
 
 export async function generateStaticParams() {
-	const res = await executeGraphql(CollectionsGetListDocument);
+	const res = await executeGraphql({ query: CollectionsGetListDocument });
 	const params = res.collections.data.map((c) => {
 		return { collectionSlug: c.slug };
 	});
@@ -13,8 +13,11 @@ export async function generateStaticParams() {
 }
 
 const CollectionPage = async ({ params }: { params: { collectionSlug: string } }) => {
-	const { collection } = await executeGraphql(CollectionGetProductsListDocument, {
-		slug: params.collectionSlug,
+	const { collection } = await executeGraphql({
+		query: CollectionGetProductsListDocument,
+		variables: {
+			slug: params.collectionSlug,
+		},
 	});
 	if (!collection) {
 		throw notFound();

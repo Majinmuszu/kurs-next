@@ -1,12 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { revalidateTag } from "next/cache";
 import { addToCart, executeGraphql } from "@/api/api";
 import { ProductGetItemByIdDocument } from "@/gql/graphql";
 import { AddToCartButton } from "@/ui/atoms/AddToCartBtn";
 
 const ProductSummary = async ({ id }: { id: string }) => {
-	const { product } = await executeGraphql(ProductGetItemByIdDocument, { id });
+	const { product } = await executeGraphql({query: ProductGetItemByIdDocument, variables: { id }});
 	if (!product) {
 		throw notFound();
 	}
@@ -14,6 +15,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 	const addProductToCartAction = async () => {
 		"use server";
 		await addToCart(product.id);
+		revalidateTag("cart");
 	};
 
 	return (

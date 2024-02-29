@@ -10,7 +10,7 @@ type CategoryPageProps = {
 	pageNumber: string;
 };
 export async function generateStaticParams() {
-	const res = await executeGraphql(CategoriesGetListDocument);
+	const res = await executeGraphql({ query: CategoriesGetListDocument });
 	// const total = Math.ceil(res.categories.meta.total / 10);
 	const params: CategoryPageProps[] = res.categories.data.map((c) => {
 		return { categorySlug: c.slug, pageNumber: "1" };
@@ -22,8 +22,11 @@ export async function generateStaticParams() {
 }
 
 const CategoryPage = async ({ params }: { params: CategoryPageProps }) => {
-	const { category } = await executeGraphql(CategoryGetProductsListDocument, {
-		slug: params.categorySlug,
+	const { category } = await executeGraphql({
+		query: CategoryGetProductsListDocument,
+		variables: {
+			slug: params.categorySlug,
+		},
 	});
 
 	if (!category) {

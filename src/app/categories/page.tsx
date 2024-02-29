@@ -5,7 +5,7 @@ import { CategoriesGetListDocument } from "@/gql/graphql";
 import { ProductCardImage } from "@/ui/atoms/ProductCardImage";
 
 const AllCategoriesPage = async () => {
-	const { categories } = await executeGraphql(CategoriesGetListDocument);
+	const { categories } = await executeGraphql({ query: CategoriesGetListDocument });
 	return (
 		<section>
 			<ul

@@ -7,7 +7,10 @@ import { ProductsList } from "@/ui/organisms/ProductsList";
 const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
 	const page = params.pageNumber ? parseInt(params.pageNumber) : 1;
 	const offset = (page - 1) * 10;
-	const { products } = await executeGraphql(ProductsGetListDocument, { offset });
+	const { products } = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: { offset },
+	});
 	const total = Math.ceil(products.meta.total / 10);
 	return (
 		<section>

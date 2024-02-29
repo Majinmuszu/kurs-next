@@ -7,7 +7,10 @@ import { Loader } from "@/ui/atoms/Loader";
 import { ProductSummary } from "@/ui/organisms/ProductSummary";
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-	const { product } = await executeGraphql(ProductGetItemByIdDocument, { id: params.id });
+	const { product } = await executeGraphql({
+		query: ProductGetItemByIdDocument,
+		variables: { id: params.id },
+	});
 
 	return {
 		title: product?.name,

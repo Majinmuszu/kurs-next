@@ -5,7 +5,7 @@ import { CollectionsGetListDocument } from "@/gql/graphql";
 import { ProductCardImage } from "@/ui/atoms/ProductCardImage";
 
 const AllCollectionsPage = async () => {
-	const { collections } = await executeGraphql(CollectionsGetListDocument);
+	const { collections } = await executeGraphql({ query: CollectionsGetListDocument });
 	return (
 		<section>
 			<ul

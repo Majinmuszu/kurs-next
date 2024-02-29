@@ -4,8 +4,11 @@ import { ProductsGetBySearchDocument } from "@/gql/graphql";
 import { ProductsList } from "@/ui/organisms/ProductsList";
 
 const SearchPage = async ({ searchParams }: { searchParams: { query: string } }) => {
-	const { products } = await executeGraphql(ProductsGetBySearchDocument, {
-		search: searchParams.query,
+	const { products } = await executeGraphql({
+		query: ProductsGetBySearchDocument,
+		variables: {
+			search: searchParams.query,
+		},
 	});
 
 	if (!products.data || products.data.length < 1) {

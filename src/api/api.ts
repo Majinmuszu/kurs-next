@@ -9,10 +9,20 @@ type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
 	| { data: T; errors?: undefined };
 
-export const executeGraphql = async <TResult, TVariables>(
-	query: TypedDocumentString<TResult, TVariables>,
-	...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
-): Promise<TResult> => {
+export async function executeGraphql<TResult, TVariables>({
+	query,
+	variables,
+	cache,
+	next,
+	headers,
+}: {
+	query: TypedDocumentString<TResult, TVariables>;
+	cache?: RequestCache;
+	headers?: HeadersInit;
+	next?: NextFetchRequestConfig | undefined;
+} & (TVariables extends { [key: string]: never }
+	? { variables?: never }
+	: { variables: TVariables })): Promise<TResult> {
 	if (!process.env.GRAPHQL_URL) {
 		throw TypeError("GRAPHQL_URL is not defined");
 	}
@@ -23,7 +33,10 @@ export const executeGraphql = async <TResult, TVariables>(
 			query,
 			variables,
 		}),
+		cache,
+		next,
 		headers: {
+			...headers,
 			"Content-Type": "application/json",
 		},
 	});
@@ -37,7 +50,7 @@ export const executeGraphql = async <TResult, TVariables>(
 	}
 
 	return graphqlResponse.data;
-};
+}
 
 export const addToCart = async (productId: string) => {
 	const cartId = cookies().get("cartId")?.value;
@@ -45,9 +58,12 @@ export const addToCart = async (productId: string) => {
 		const cart = await createCartAndAddItem(productId);
 		return cart;
 	} else {
-		const cartAddItem = await executeGraphql(CartAddItemMutationDocument, {
-			id: cartId,
-			productId,
+		const cartAddItem = await executeGraphql({
+			query: CartAddItemMutationDocument,
+			variables: {
+				id: cartId,
+				productId,
+			},
 		});
 		if (!cartAddItem) {
 			throw new Error("Can't add to cart");
@@ -58,21 +74,27 @@ export const addToCart = async (productId: string) => {
 
 export const getCartFromCookie = async () => {
 	const cartId = cookies().get("cartId")?.value;
-	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, {
-		id: cartId,
+	const { cartFindOrCreate } = await executeGraphql({
+		query: CartFindOrCreateMutationDocument,
+		variables: {
+			id: cartId,
+		},
 	});
 	return cartFindOrCreate;
 };
 
 export const createCartAndAddItem = async (productId: string) => {
-	const { cartFindOrCreate } = await executeGraphql(CartFindOrCreateMutationDocument, {
-		input: {
-			items: [
-				{
-					productId: productId,
-					quantity: 1,
-				},
-			],
+	const { cartFindOrCreate } = await executeGraphql({
+		query: CartFindOrCreateMutationDocument,
+		variables: {
+			input: {
+				items: [
+					{
+						productId: productId,
+						quantity: 1,
+					},
+				],
+			},
 		},
 	});
 	if (cartFindOrCreate.id) {
