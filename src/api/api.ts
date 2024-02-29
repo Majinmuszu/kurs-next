@@ -67,6 +67,7 @@ export const addToCart = async (productId: string) => {
 			next: {
 				tags: ["cart"],
 			},
+			cache: "no-store",
 		});
 		if (!cartAddItem) {
 			throw new Error("Can't add to cart");
@@ -85,6 +86,7 @@ export const getCartFromCookie = async () => {
 		next: {
 			tags: ["cart"],
 		},
+		cache: "no-store",
 	});
 	return cartFindOrCreate;
 };
@@ -105,6 +107,7 @@ export const createCartAndAddItem = async (productId: string) => {
 		next: {
 			tags: ["cart"],
 		},
+		cache: "no-store",
 	});
 	if (cartFindOrCreate.id) {
 		cookies().set("cartId", cartFindOrCreate.id);

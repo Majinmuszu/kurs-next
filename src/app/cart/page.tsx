@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getCartFromCookie } from "@/api/api";
 import { ItemQuantityManager } from "@/ui/atoms/ItemQuantityManager";
+import { RemoveItemBtn } from "@/ui/atoms/RemoveItemBtn";
 
 const CartPage = async () => {
 	const cartId = cookies().get("cartId")?.value;
@@ -67,12 +68,7 @@ const CartPage = async () => {
 							/>
 						</div>
 						<div className="mt-2 flex space-x-2">
-							<button
-								// onClick={() => handleRemoveItem(cartItem.product.id)}
-								className="rounded bg-red-500 px-2 py-1 text-white"
-							>
-								Remove
-							</button>
+							<RemoveItemBtn cartId={res.id} productId={cartItem.product.id} />
 						</div>
 					</div>
 				</div>
