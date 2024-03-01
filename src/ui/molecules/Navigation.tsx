@@ -6,9 +6,12 @@ import { CartIcon } from "@/ui/icons/CartIcon";
 import { getCartFromCookie } from "@/api/api";
 
 const Navigation = async () => {
-	const res = await getCartFromCookie();
+	const cart = await getCartFromCookie();
 	const calculateItems = () => {
-		return res.items.reduce((total, item) => total + item.quantity, 0);
+		if (!cart) {
+			return 0;
+		}
+		return cart.items.reduce((total, item) => total + item.quantity, 0);
 	};
 	return (
 		<nav className="fixed z-10 flex w-full  bg-blue-500 opacity-95" role="navigation">

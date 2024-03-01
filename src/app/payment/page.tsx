@@ -5,7 +5,8 @@ import { StripeForm } from "@/ui/organisms/StripeForm";
 
 export default async function PaymentPage() {
 	const cart = await getCartFromCookie();
-	if (!cart) {
+
+	if (!cart || cart.items.length < 1) {
 		redirect("/");
 	}
 

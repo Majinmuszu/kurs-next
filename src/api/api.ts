@@ -78,6 +78,9 @@ export const addToCart = async (productId: string) => {
 
 export const getCartFromCookie = async () => {
 	const cartId = cookies().get("cartId")?.value;
+	if (!cartId) {
+		return null;
+	}
 	const { cartFindOrCreate } = await executeGraphql({
 		query: CartFindOrCreateMutationDocument,
 		variables: {
