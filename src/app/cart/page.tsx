@@ -15,15 +15,15 @@ const CartPage = async () => {
 		// return <div>Your cart is empty</div>;
 	}
 
-	const res = await getCartFromCookie();
+	const cart = await getCartFromCookie();
 
-	if (res.items.length < 1) {
+	if (!cart || cart.items.length < 1) {
 		redirect("/");
 		// return <div>Your cart is empty</div>;
 	}
 
 	const calculateTotalPrice = () => {
-		return res.items.reduce((total, item) => total + item.quantity * item.product.price, 0);
+		return cart.items.reduce((total, item) => total + item.quantity * item.product.price, 0);
 	};
 
 	// const handleIncreaseQuantity = (itemId: string) => {
@@ -46,7 +46,7 @@ const CartPage = async () => {
 		<div className="container mx-auto p-4">
 			<h1 className="mb-4 text-2xl font-bold">Shopping Cart</h1>
 
-			{res.items.map((cartItem) => (
+			{cart.items.map((cartItem) => (
 				<div key={cartItem.product.id} className="mb-3 flex items-center rounded-xl bg-white p-4">
 					<Image
 						src={cartItem.product.images[0].url}
@@ -63,13 +63,13 @@ const CartPage = async () => {
 						<div className="flex flex-col gap-3 font-bold sm:flex-row sm:items-center">
 							Quantity:
 							<ItemQuantityManager
-								cartId={res.id}
+								cartId={cart.id}
 								quantity={cartItem.quantity}
 								productId={cartItem.product.id}
 							/>
 						</div>
 						<div className="mt-2 flex space-x-2">
-							<RemoveItemBtn cartId={res.id} productId={cartItem.product.id} />
+							<RemoveItemBtn cartId={cart.id} productId={cartItem.product.id} />
 						</div>
 					</div>
 				</div>
