@@ -7,7 +7,10 @@ import { ProductGetItemByIdDocument } from "@/gql/graphql";
 import { AddToCartButton } from "@/ui/atoms/AddToCartBtn";
 
 const ProductSummary = async ({ id }: { id: string }) => {
-	const { product } = await executeGraphql({query: ProductGetItemByIdDocument, variables: { id }});
+	const { product } = await executeGraphql({
+		query: ProductGetItemByIdDocument,
+		variables: { id },
+	});
 	if (!product) {
 		throw notFound();
 	}
@@ -36,7 +39,7 @@ const ProductSummary = async ({ id }: { id: string }) => {
 				<div className="mb-4">
 					<h1 className="mb-1 text-4xl font-bold">{product.name}</h1>
 					<p className="mb-4 text-xl font-light">{product.categories[0].name}</p>
-					<p className="text-2xl text-green-600 md:text-3xl">${product.price / 100}</p>
+					<p className="text-2xl text-green-600 md:text-3xl">{product.price / 100} zł</p>
 				</div>
 
 				{product.rating && (
