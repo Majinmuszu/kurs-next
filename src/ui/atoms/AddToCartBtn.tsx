@@ -9,6 +9,7 @@ export function AddToCartButton() {
 		<button
 			type="submit"
 			disabled={status.pending}
+			data-testid="add-to-cart-button"
 			className="rounded-full bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-wait disabled:bg-slate-500"
 		>
 			Add to cart

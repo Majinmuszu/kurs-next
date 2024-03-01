@@ -22,16 +22,18 @@ const ItemQuantityManager = ({ quantity, productId, cartId }: Props) => {
 					await changeItemQuantity(productId, optimisticQuantity - 1, cartId);
 				}}
 				disabled={optimisticQuantity === 1}
+				data-testid="decrement"
 				className="rounded bg-blue-200 px-3 py-1 disabled:cursor-not-allowed disabled:bg-gray-500"
 			>
 				-
 			</button>
-			{optimisticQuantity}
+			<p data-testid="quantity">{optimisticQuantity}</p>
 			<button
 				formAction={async () => {
 					setOptimisticQuantity(optimisticQuantity + 1);
 					await changeItemQuantity(productId, optimisticQuantity + 1, cartId);
 				}}
+				data-testid="increment"
 				className="rounded bg-blue-200 px-3 py-1"
 			>
 				+
