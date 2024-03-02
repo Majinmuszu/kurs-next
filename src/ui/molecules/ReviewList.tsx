@@ -4,6 +4,7 @@ type ReviewListProps = {
 		author: string;
 		description: string;
 		email: string;
+		id: string;
 		rating: number;
 		title: string;
 	}[];
