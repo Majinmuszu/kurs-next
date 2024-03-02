@@ -13,8 +13,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modalCart,
 }: Readonly<{
 	children: React.ReactNode;
+	modalCart: React.ReactNode;
 }>) {
 	return (
 		<html lang="en">
@@ -24,6 +26,7 @@ export default function RootLayout({
 					{children}
 				</main>
 				<Footer />
+				{modalCart}
 			</body>
 		</html>
 	);
