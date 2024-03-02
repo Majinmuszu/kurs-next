@@ -342,7 +342,7 @@ export type ProductGetReviewsQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetReviewsQuery = { product?: { reviews: Array<{ author: string, description: string, email: string, id: string, rating: number, title: string, updatedAt: unknown }> } | null };
+export type ProductGetReviewsQuery = { product?: { reviews: Array<{ author: string, description: string, email: string, id: string, rating: number, title: string }> } | null };
 
 export type ProductItemFragment = { description: string, id: string, name: string, price: number, rating?: number | null, slug: string, categories: Array<{ name: string, slug: string }>, collections: Array<{ name: string, slug: string }>, images: Array<{ alt: string, height: number, url: string, width: number }> };
 
@@ -612,7 +612,6 @@ export const ProductGetReviewsDocument = new TypedDocumentString(`
       id
       rating
       title
-      updatedAt
     }
   }
 }

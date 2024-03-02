@@ -4,10 +4,8 @@ type ReviewListProps = {
 		author: string;
 		description: string;
 		email: string;
-		id: string;
 		rating: number;
 		title: string;
-		updatedAt: unknown;
 	}[];
 };
 const ReviewList = async ({ reviews }: ReviewListProps) => {
