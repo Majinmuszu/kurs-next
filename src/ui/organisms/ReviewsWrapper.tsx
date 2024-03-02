@@ -54,8 +54,9 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 							type="text"
 							name="title"
 							disabled={isPending}
+							minLength={2}
 							required
-							className="mt-1 block w-full rounded border border-gray-300 p-2 invalid:border-2 invalid:border-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-1 block w-full rounded border-2 border-gray-300 p-2 valid:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
 						/>
 					</label>
 					<label className="mb-2 block text-lg font-semibold">
@@ -64,8 +65,9 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 							type="text"
 							name="author"
 							disabled={isPending}
+							minLength={2}
 							required
-							className="mt-1 block w-full rounded border border-gray-300 p-2 invalid:border-2 invalid:border-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-1 block w-full rounded border-2 border-gray-300 p-2 valid:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
 						/>
 					</label>
 					<label className="mb-2 block text-lg font-semibold">
@@ -73,8 +75,9 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 						<textarea
 							name="description"
 							disabled={isPending}
+							minLength={2}
 							required
-							className="mt-1 block w-full rounded border border-gray-300 p-2 invalid:border-2 invalid:border-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-1 block w-full rounded border-2 border-gray-300 p-2 valid:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
 						/>
 					</label>
 					<label className="mb-2 block text-lg font-semibold">
@@ -83,7 +86,7 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 							name="rating"
 							disabled={isPending}
 							required
-							className="mt-1 block w-full rounded border border-gray-300 p-2 invalid:border-2 invalid:border-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-1 block w-full rounded border-2 border-gray-300 p-2 valid:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{[1, 2, 3, 4, 5].map((value) => (
 								<option key={value} value={value}>
@@ -100,7 +103,7 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 							disabled={isPending}
 							required
 							pattern="[^\s@]+@[^\s@]+\.[^\s@]+[^\s@]+"
-							className="mt-1 block w-full rounded border border-gray-300 p-2 invalid:border-2 invalid:border-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-1 block w-full rounded border-2 border-gray-300 p-2 valid:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
 						/>
 					</label>
 					<button
