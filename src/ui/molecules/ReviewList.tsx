@@ -9,7 +9,7 @@ type ReviewListProps = {
 		title: string;
 	}[];
 };
-const ReviewList = async ({ reviews }: ReviewListProps) => {
+const ReviewList = ({ reviews }: ReviewListProps) => {
 	if (reviews.length < 1) {
 		return <div>No reviews</div>;
 	}
@@ -29,7 +29,6 @@ const ReviewList = async ({ reviews }: ReviewListProps) => {
 					<p className="mt-4 text-blue-500">{review.email}</p>
 				</div>
 			))}
-			;
 		</>
 	);
 };

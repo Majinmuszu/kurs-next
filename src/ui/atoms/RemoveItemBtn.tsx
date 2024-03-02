@@ -1,7 +1,7 @@
 "use client";
 import React, { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { removeItem } from "@/app/cart/actions";
+import { removeItem } from "@/api/actions";
 
 type RemoveItemBtnProps = {
 	cartId: string;
