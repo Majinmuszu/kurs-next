@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { SearchInput } from "@/ui/atoms/SearchInput";
 import { CartIcon } from "@/ui/icons/CartIcon";
@@ -42,6 +43,12 @@ const Navigation = async () => {
 						<CartIcon />
 						{calculateItems() || 0}
 					</Link>
+					<SignedIn>
+						<UserButton userProfileMode="navigation" userProfileUrl="/user-profile" />
+					</SignedIn>
+					<SignedOut>
+						<SignInButton />
+					</SignedOut>
 				</div>
 			</div>
 		</nav>
