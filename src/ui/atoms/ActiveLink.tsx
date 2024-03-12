@@ -21,7 +21,7 @@ const ActiveLink = ({ children, href, exact = true }: ActiveLinkType) => {
 					href={href}
 					aria-current
 					className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
-						underline: isActive,
+						"border-b-2": isActive,
 					})}
 				>
 					{children}
@@ -30,7 +30,7 @@ const ActiveLink = ({ children, href, exact = true }: ActiveLinkType) => {
 				<Link
 					href={href}
 					className={clsx(`text-white transition duration-300 hover:text-gray-300`, {
-						underline: isActive,
+						"border-b-2": isActive,
 					})}
 				>
 					{children}
