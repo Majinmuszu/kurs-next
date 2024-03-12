@@ -39,14 +39,14 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 		});
 		const res = await createReview(newReview, productId);
 		if (res.id) {
-			const form = document?.getElementById("review-form") as HTMLFormElement;
+			const form = document?.getElementById("add-review-form") as HTMLFormElement;
 			form.reset();
 		}
 	};
 	return (
 		<>
 			<div className="w-full rounded bg-white p-4 shadow ">
-				<form className="rounded bg-white p-4 shadow" id="review-form">
+				<form className="rounded bg-white p-4 shadow" id="add-review-form">
 					<h3 className="mb-2 text-xl font-bold">Want to add review? Here it is! Nice Form!</h3>
 					<label className="mb-2 block text-lg font-semibold">
 						Title:

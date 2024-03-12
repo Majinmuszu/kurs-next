@@ -1,5 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
+import { type Metadata } from "next/types";
 import { executeGraphql } from "@/api/api";
 import { CollectionGetProductsListDocument, CollectionsGetListDocument } from "@/gql/graphql";
 import { ProductsList } from "@/ui/organisms/ProductsList";
@@ -10,6 +11,23 @@ export async function generateStaticParams() {
 		return { collectionSlug: c.slug };
 	});
 	return params;
+}
+export async function generateMetadata({
+	params,
+}: {
+	params: { collectionSlug: string };
+}): Promise<Metadata> {
+	const { collection } = await executeGraphql({
+		query: CollectionGetProductsListDocument,
+		variables: {
+			slug: params.collectionSlug,
+		},
+	});
+
+	return {
+		title: collection?.name,
+		description: collection?.description,
+	};
 }
 
 const CollectionPage = async ({ params }: { params: { collectionSlug: string } }) => {

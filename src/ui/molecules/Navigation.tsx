@@ -27,11 +27,6 @@ const Navigation = async () => {
 						</ActiveLink>
 					</li>
 					<li>
-						<ActiveLink href="/collections" exact={false}>
-							Collections
-						</ActiveLink>
-					</li>
-					<li>
 						<ActiveLink href="/categories" exact={false}>
 							Categories
 						</ActiveLink>
