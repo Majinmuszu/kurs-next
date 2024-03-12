@@ -1,8 +1,22 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { deleteCookie } from "@/api/actions";
 
-// payment_intent=pi_3Ope9rEEpw3andLW1pKe6HdJ&payment_intent_client_secret=pi_3Ope9rEEpw3andLW1pKe6HdJ_secret_PiQKxfUcvMV5KxKXnw5sgzH3F&redirect_status=succeeded
-const SuccessPaymentPage = ({ searchParams }: { searchParams: { redirect_status: string } }) => {
+const SuccessPaymentPage = ({
+	searchParams,
+}: {
+	searchParams: { redirect_status: string; payment_intent: string };
+}) => {
+	useEffect(() => {
+		async function handleCookieDelete() {
+			await deleteCookie();
+		}
+		if (searchParams.redirect_status === "succeeded") {
+			handleCookieDelete().catch((e) => console.error(e));
+		}
+	}, [searchParams.redirect_status]);
+
 	switch (searchParams.redirect_status) {
 		case "succeeded":
 			return (

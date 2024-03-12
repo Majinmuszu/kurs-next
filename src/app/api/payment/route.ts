@@ -2,6 +2,9 @@
 
 import { type NextRequest } from "next/server";
 import Stripe from "stripe";
+import { cookies } from "next/headers";
+import { executeGraphql } from "@/api/api";
+import { CartCompleteDocument } from "@/gql/graphql";
 
 export async function POST(req: NextRequest): Promise<Response> {
 	const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -64,6 +67,32 @@ export async function POST(req: NextRequest): Promise<Response> {
 			// Then define and call a function to handle the event payment_intent.succeeded
 			break;
 		// ... handle other event types
+		case "charge.succeeded":
+			const chargeSucceeded = event.data.object;
+			// Here should be handling payment via webhook
+
+			console.log("---------------succeeded----------------");
+			console.log(chargeSucceeded.metadata);
+			const { cartComplete } = await executeGraphql({
+				query: CartCompleteDocument,
+				variables: {
+					cartId: chargeSucceeded.metadata.orderId,
+					userEmail: chargeSucceeded.metadata.userEmail,
+				},
+				next: { tags: ["cart"] },
+			});
+			if (!cartComplete.id) {
+				throw Error;
+				console.error(cartComplete);
+			}
+			console.log("dupa");
+			const cartId = cookies().getAll();
+			// cookies().delete("cartId");
+			cookies().set("cartId", "");
+			console.log(cartId);
+			console.log(cartComplete);
+			// Then define and call a function to handle the event payment_intent.succeeded
+			break;
 		default:
 			console.log(`Unhandled event type ${event.type}`);
 	}

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { currentUser } from "@clerk/nextjs";
 import { getCartFromCookie } from "@/api/api";
 import { StripeForm } from "@/ui/organisms/StripeForm";
 
@@ -8,6 +9,15 @@ export default async function PaymentPage() {
 
 	if (!cart || cart.items.length < 1) {
 		redirect("/");
+	}
+	const user = await currentUser();
+	if (!user) {
+		redirect("/sign-in");
+	}
+
+	const email = user.emailAddresses[0]?.emailAddress;
+	if (!email) {
+		redirect("/sign-in");
 	}
 
 	if (!process.env.STRIPE_SECRET_KEY) {
@@ -30,6 +40,7 @@ export default async function PaymentPage() {
 		},
 		metadata: {
 			orderId: cart.id,
+			userEmail: email,
 		},
 	});
 

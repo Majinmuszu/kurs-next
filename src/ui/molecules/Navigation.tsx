@@ -36,6 +36,11 @@ const Navigation = async () => {
 							Categories
 						</ActiveLink>
 					</li>
+					<SignedIn>
+						<li>
+							<ActiveLink href="/orders"> My Orders</ActiveLink>
+						</li>
+					</SignedIn>
 				</ul>
 				<div className="flex items-center gap-3">
 					<SearchInput />

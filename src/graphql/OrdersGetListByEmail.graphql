@@ -1,0 +1,12 @@
+query OrdersGetListByEmail($email: String = "artur.krasniewski1@gmail.com") {
+	orders(email: $email, take: 50) {
+		data {
+			createdAt
+			id
+			lines
+			status
+			totalAmount
+			updatedAt
+		}
+	}
+}

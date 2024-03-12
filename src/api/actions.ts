@@ -1,5 +1,6 @@
 "use server";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 import { executeGraphql } from "@/api/api";
 import {
 	CartChangeItemQuantityMutationDocument,
@@ -48,4 +49,8 @@ export const createReview = async (
 	});
 	revalidateTag("reviews");
 	return reviewCreate;
+};
+
+export const deleteCookie = async () => {
+	cookies().set("cartId", "");
 };
