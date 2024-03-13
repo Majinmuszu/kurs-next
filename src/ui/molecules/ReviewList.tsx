@@ -21,9 +21,12 @@ const ReviewList = ({ reviews }: ReviewListProps) => {
 					<p className="mb-2 text-gray-500">{review.author}</p>
 					<p className="mb-4 text-gray-700">{review.description}</p>
 					<div className="flex items-center">
-						<span className="text-yellow-500">
-							{"★".repeat(review.rating)}
-							{"☆".repeat(5 - review.rating)}
+						<span>
+							Rating:{" "}
+							<span className="text-yellow-500 shadow-sm">
+								{"★".repeat(review.rating)}
+								{"☆".repeat(5 - review.rating)}
+							</span>
 						</span>
 					</div>
 					<p className="mt-4 text-blue-500">{review.email}</p>

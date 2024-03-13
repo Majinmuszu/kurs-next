@@ -44,9 +44,16 @@ const ProductSummary = async ({ id }: { id: string }) => {
 
 				{product.rating && (
 					<div className="mb-4">
-						<span className="inline text-yellow-500">
-							{Array(Math.round(product.rating)).fill("★").join("")}
+						<span>
+							Rating:{" "}
+							<i className="hidden" data-testid="product-rating">
+								{product.rating.toFixed(2)}{" "}
+							</i>
+							<span className="text-yellow-500 shadow-sm">
+								{Array(Math.round(product.rating)).fill("★").join("")}
+							</span>
 						</span>
+
 						{/* <span className="text-gray-500">({product.rating.count} opinii)</span> */}
 					</div>
 				)}

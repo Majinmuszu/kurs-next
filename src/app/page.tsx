@@ -10,11 +10,11 @@ export default async function Home() {
 	});
 	return (
 		<>
-			<section className="mb-4 text-xl font-bold">
+			<section className="mb-4">
 				<ProductsList products={products.data} />
 			</section>
-			<section className="mb-4 text-xl font-extrabold">
-				<p className="mb-2">Our Collections</p>
+			<section className="mb-4">
+				<p className="mb-2 text-xl font-extrabold">Our Collections</p>
 				<CollectionsList />
 			</section>
 		</>

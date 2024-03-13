@@ -14,6 +14,7 @@ const ProductCard = ({ product }: { product: ProductListItemFragment }) => {
 						category={product.categories[0].name}
 						title={product.name}
 						price={product.price}
+						rating={product.rating}
 					/>
 				</article>
 			</Link>

@@ -6,6 +6,7 @@ fragment ProductListItem on Product {
 		alt
 	}
 	price
+	rating
 	categories {
 		name
 	}
