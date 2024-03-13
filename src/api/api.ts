@@ -15,7 +15,7 @@ export async function executeGraphql<TResult, TVariables>({
 	query,
 	variables,
 	cache,
-	next = { revalidate: 24 * 60 * 60 * 1000 },
+	next,
 	headers,
 }: {
 	query: TypedDocumentString<TResult, TVariables>;

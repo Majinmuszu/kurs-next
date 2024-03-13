@@ -7,10 +7,7 @@ import { ProductCardImage } from "@/ui/atoms/ProductCardImage";
 const CollectionsList = async () => {
 	const { collections } = await executeGraphql({ query: CollectionsGetListDocument });
 	return (
-		<ul
-			className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4"
-			data-testid="products-list"
-		>
+		<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
 			{collections.data.map((col) => (
 				<li key={col.slug}>
 					<Link href={`/collections/${col.slug}`}>
