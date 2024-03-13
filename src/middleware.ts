@@ -15,6 +15,7 @@ export default authMiddleware({
 		"/collections/(.*)",
 		"/product/(.*)",
 		"/products",
+		"/products/(.*)",
 		"/api/payment(.*)",
 		"/api/webhook(.*)",
 	],

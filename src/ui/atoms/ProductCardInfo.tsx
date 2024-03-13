@@ -17,7 +17,7 @@ const ProductCardInfo = ({
 				<h3 className="text-lg font-bold">{title}</h3>
 				<p className="text-base text-gray-700">
 					Rating:{" "}
-					<i className="hidden" data-testid="product-rating">
+					<i className="" data-testid="product-rating">
 						{rating ? rating.toFixed(2) : "0"}{" "}
 					</i>
 					<span className="text-yellow-500">
