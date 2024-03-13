@@ -20,7 +20,7 @@ const ProductCardInfo = ({
 					<i className="hidden" data-testid="product-rating">
 						{rating ? rating.toFixed(2) : "0"}{" "}
 					</i>
-					<span className="text-yellow-500 shadow-sm">
+					<span className="text-yellow-500">
 						{"★".repeat(Math.round(rating || 0))}
 						{"☆".repeat(5 - Math.round(rating || 0))}
 					</span>
