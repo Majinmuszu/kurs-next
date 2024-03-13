@@ -1,5 +1,5 @@
 query ProductsGetList($offset: Int) {
-	products(take: 10, skip: $offset) {
+	products(take: 8, skip: $offset) {
 		data {
 			...ProductListItem
 		}

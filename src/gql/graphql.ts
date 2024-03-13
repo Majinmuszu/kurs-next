@@ -685,7 +685,7 @@ export const ProductsGetBySearchDocument = new TypedDocumentString(`
 }`) as unknown as TypedDocumentString<ProductsGetBySearchQuery, ProductsGetBySearchQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($offset: Int) {
-  products(take: 10, skip: $offset) {
+  products(take: 8, skip: $offset) {
     data {
       ...ProductListItem
     }

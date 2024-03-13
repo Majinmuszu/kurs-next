@@ -10,13 +10,12 @@ export default async function Home() {
 	});
 	return (
 		<>
-			<section className="mb-4 text-xl font-extrabold">
-				<h1 className="mb-2">Our Collections</h1>
-				<CollectionsList />
-			</section>
 			<section className="mb-4 text-xl font-bold">
-				<h2 className="mb-2">Looking for these?</h2>
 				<ProductsList products={products.data} />
+			</section>
+			<section className="mb-4 text-xl font-extrabold">
+				<p className="mb-2">Our Collections</p>
+				<CollectionsList />
 			</section>
 		</>
 	);
