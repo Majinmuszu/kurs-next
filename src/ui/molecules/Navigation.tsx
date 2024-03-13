@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { type Route } from "next";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { SearchInput } from "@/ui/atoms/SearchInput";
 import { CartIcon } from "@/ui/icons/CartIcon";
-import { getCartFromCookie } from "@/api/api";
+import { executeGraphql, getCartFromCookie } from "@/api/api";
+import { CategoriesGetListDocument } from "@/gql/graphql";
 
 const Navigation = async () => {
 	const cart = await getCartFromCookie();
@@ -14,29 +16,35 @@ const Navigation = async () => {
 		}
 		return cart.items.reduce((total, item) => total + item.quantity, 0);
 	};
+	const { categories } = await executeGraphql({ query: CategoriesGetListDocument });
 	return (
-		<nav className="fixed z-10 flex w-full  bg-blue-500 opacity-95" role="navigation">
+		<div className="fixed z-10 flex w-full  bg-blue-500 opacity-95">
 			<div className="container mx-auto flex flex-col items-center justify-between space-x-4 p-4 sm:flex-row">
-				<ul className="flex space-x-4 p-4">
-					<li>
-						<ActiveLink href="/">Home</ActiveLink>
-					</li>
-					<li>
-						<ActiveLink href="/products" exact={false}>
-							All
+				<nav className="flex space-x-4 p-4" role="navigation">
+					<ActiveLink href="/">Home</ActiveLink>
+
+					<ActiveLink href="/products" exact={false}>
+						All
+					</ActiveLink>
+
+					{categories.data.map((category) => (
+						<ActiveLink
+							key={category.id}
+							href={("/categories/" + category.slug + "/1") as Route}
+							exact={false}
+						>
+							{category.name}
 						</ActiveLink>
-					</li>
-					<li>
+					))}
+					{/* <li>
 						<ActiveLink href="/categories" exact={false}>
 							Categories
 						</ActiveLink>
-					</li>
+					</li> */}
 					<SignedIn>
-						<li>
-							<ActiveLink href="/orders"> My Orders</ActiveLink>
-						</li>
+						<ActiveLink href="/orders"> My Orders</ActiveLink>
 					</SignedIn>
-				</ul>
+				</nav>
 				<div className="flex items-center gap-3">
 					<SearchInput />
 					<Link href="/cart" className="intems-center flex gap-1 font-bold text-white">
@@ -51,7 +59,7 @@ const Navigation = async () => {
 					</SignedOut>
 				</div>
 			</div>
-		</nav>
+		</div>
 	);
 };
 

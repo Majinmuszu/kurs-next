@@ -25,16 +25,23 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 	const [isPending, _startTransition] = useTransition();
 
 	const handleFormAction = async (formData: FormData) => {
-		const data = Object.fromEntries(formData) as unknown as Review;
+		const data = Object.fromEntries(formData) as unknown as {
+			name: string;
+			content: string;
+			email: string;
+			id: string;
+			rating: number;
+			headline: string;
+		};
 		const newReview = {
-			author: data.author,
-			description: data.description,
+			author: data.name,
+			description: data.content,
 			email: data.email,
 			rating: Number(data.rating),
-			title: data.title,
+			title: data.headline,
 		};
 		setOptimisticReviews({
-			id: `${data.description}+${Math.random() * 100}`,
+			id: `${data.content}+${Math.random() * 100}`,
 			...newReview,
 		});
 		const res = await createReview(newReview, productId);
@@ -46,13 +53,17 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 	return (
 		<>
 			<div className="w-full rounded bg-white p-4 shadow ">
-				<form className="rounded bg-white p-4 shadow" id="add-review-form">
+				<form
+					className="rounded bg-white p-4 shadow"
+					id="add-review-form"
+					data-testid="add-review-form"
+				>
 					<h3 className="mb-2 text-xl font-bold">Want to add review? Here it is! Nice Form!</h3>
 					<label className="mb-2 block text-lg font-semibold">
 						Title:
 						<input
 							type="text"
-							name="title"
+							name="headline"
 							disabled={isPending}
 							minLength={2}
 							required
@@ -63,7 +74,7 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 						Author:
 						<input
 							type="text"
-							name="author"
+							name="name"
 							disabled={isPending}
 							minLength={2}
 							required
@@ -73,7 +84,7 @@ const ReviewsWrapper = ({ reviews, productId }: ReviewWrapperProps) => {
 					<label className="mb-2 block text-lg font-semibold">
 						Description:
 						<textarea
-							name="description"
+							name="content"
 							disabled={isPending}
 							minLength={2}
 							required

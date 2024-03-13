@@ -1,5 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
+import { type Metadata } from "next";
 import { executeGraphql } from "@/api/api";
 import { CategoriesGetListDocument, CategoryGetProductsListDocument } from "@/gql/graphql";
 import { ProductsList } from "@/ui/organisms/ProductsList";
@@ -19,6 +20,23 @@ export async function generateStaticParams() {
 	// 	params.push({ pageNumber: i.toString() });
 	// }
 	return params;
+}
+export async function generateMetadata({
+	params,
+}: {
+	params: CategoryPageProps;
+}): Promise<Metadata> {
+	const { category } = await executeGraphql({
+		query: CategoryGetProductsListDocument,
+		variables: {
+			slug: params.categorySlug,
+		},
+	});
+
+	return {
+		title: category?.name,
+		description: category?.description,
+	};
 }
 
 const CategoryPage = async ({ params }: { params: CategoryPageProps }) => {
