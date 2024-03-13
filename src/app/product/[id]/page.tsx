@@ -1,11 +1,22 @@
 import { type Metadata } from "next/types";
 import React, { Suspense } from "react";
 import { executeGraphql } from "@/api/api";
-import { ProductGetItemByIdDocument } from "@/gql/graphql";
+import { ProductGetItemByIdDocument, ProductsGetListDocument } from "@/gql/graphql";
 import { RelatedProducts } from "@/ui/organisms/RelatedProducts";
 import { Loader } from "@/ui/atoms/Loader";
 import { ProductSummary } from "@/ui/organisms/ProductSummary";
 import { Reviews } from "@/ui/organisms/Reviews";
+
+export async function generateStaticParams() {
+	const { products } = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: { offset: 0 },
+	});
+	const params = products.data.map((product) => {
+		return { id: product.id };
+	});
+	return params;
+}
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
 	const { product } = await executeGraphql({
@@ -16,6 +27,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 	return {
 		title: product?.name,
 		description: product?.description,
+		metadataBase: process.env.HOST ? new URL(process.env.HOST) : null,
 	};
 }
 

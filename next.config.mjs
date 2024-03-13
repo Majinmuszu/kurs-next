@@ -5,7 +5,13 @@ const nextConfig = {
 		mdxRs: true,
 	},
 	images: {
-		domains: ["naszsklep-api.vercel.app", "static-ourstore.hyperfunctor.com"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "static-ourstore.hyperfunctor.com",
+				port: "",
+			},
+		],
 	},
 	async redirects() {
 		return [
