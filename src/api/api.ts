@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 import {
 	CartAddItemMutationDocument,
+	CartChangeItemQuantityMutationDocument,
 	CartFindOrCreateMutationDocument,
 	type TypedDocumentString,
 } from "@/gql/graphql";
@@ -58,21 +60,36 @@ export const addToCart = async (productId: string) => {
 		const cart = await createCartAndAddItem(productId);
 		return cart;
 	} else {
-		const cartAddItem = await executeGraphql({
-			query: CartAddItemMutationDocument,
+		const res = await getCartFromCookie();
+		const existingInCart = res?.items.find((item) => item.product.id === productId);
+		if (!existingInCart) {
+			const cartAddItem = await executeGraphql({
+				query: CartAddItemMutationDocument,
+				variables: {
+					id: cartId,
+					productId,
+				},
+				next: {
+					tags: ["cart"],
+				},
+				cache: "no-store",
+			});
+			if (!cartAddItem) {
+				throw new Error("Can't add to cart");
+			}
+			return cartAddItem;
+		}
+		const { cartChangeItemQuantity } = await executeGraphql({
+			query: CartChangeItemQuantityMutationDocument,
 			variables: {
-				id: cartId,
-				productId,
-			},
-			next: {
-				tags: ["cart"],
+				productId: existingInCart.product.id,
+				quantity: existingInCart.quantity + 1,
+				id: res?.id,
 			},
 			cache: "no-store",
 		});
-		if (!cartAddItem) {
-			throw new Error("Can't add to cart");
-		}
-		return cartAddItem;
+		revalidateTag("cart");
+		return cartChangeItemQuantity;
 	}
 };
 
