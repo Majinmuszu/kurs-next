@@ -8,16 +8,14 @@ import { Footer } from "@/ui/molecules/Footer";
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
-	title: "My awesome szop",
-	description: "My awesome description for my awesome szop.",
+	title: "My awesome shop",
+	description: "My awesome description for my awesome shop.",
 };
 
 export default function RootLayout({
 	children,
-	modalCart,
 }: Readonly<{
 	children: React.ReactNode;
-	modalCart: React.ReactNode;
 }>) {
 	return (
 		<ClerkProvider>
@@ -28,7 +26,6 @@ export default function RootLayout({
 						{children}
 					</main>
 					<Footer />
-					{modalCart}
 				</body>
 			</html>
 		</ClerkProvider>
