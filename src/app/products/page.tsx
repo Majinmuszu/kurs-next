@@ -6,7 +6,7 @@ import { ProductsList } from "@/ui/organisms/ProductsList";
 
 const ProductsPage = async ({ params }: { params: { pageNumber: string } }) => {
 	const page = params.pageNumber ? parseInt(params.pageNumber) : 1;
-	const offset = (page - 1) * 10;
+	const offset = (page - 1) * 8;
 	const { products } = await executeGraphql({
 		query: ProductsGetListDocument,
 		variables: { offset },
